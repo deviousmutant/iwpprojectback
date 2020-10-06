@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon source/index.js",
+    "dev": "env-cmd -f ./config/dev.env nodemon source/index.js"
   },
   "keywords": [],
   "author": "",

@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const dotenv = require('dotenv')
+// const dotenv = require('dotenv')
 const cors = require('cors')
 
 
@@ -9,24 +9,24 @@ const cors = require('cors')
 app.use(cors())
 
 //Import Routes
-const authRoute = require("./routes/auth");
+const usersRoute = require("./routes/users");
 
 //DB connection to Mongo Atlas
-dotenv.config();
+
+// dotenv.config();
+
 mongoose.connect(process.env.DB_CONNECT, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, () => console.log("Connected to IWP-Cluster"))
 
+
 //BodyParser Middleware
 app.use(express.json());
 
-//Router Middlware
-app.use("/api", authRoute);
+//Router Middleware
+app.use("/users", usersRoute);
 
-app.get("/", (req, res) => {
-    res.send("working")
-})
 
 app.listen(3001, () => {
     console.log("Server up and running!");
