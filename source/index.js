@@ -11,14 +11,14 @@ app.use(cors())
 //Import Routes
 const usersRoute = require("./routes/users");
 
-//DB connection to Mongo Atlas
+//DB connection to Mongo Database
 
 // dotenv.config();
 
 mongoose.connect(process.env.DB_CONNECT, {
     useNewUrlParser: true,
     useUnifiedTopology: true
-}, () => console.log("Connected to IWP-Cluster"))
+}, () => console.log("Connected to Mongo Database (Local)"))
 
 
 //BodyParser Middleware
