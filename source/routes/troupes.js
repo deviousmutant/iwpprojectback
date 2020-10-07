@@ -28,9 +28,51 @@ router.put("/join",auth,async (req,res)=>{
         const foundTroupe = await Troupe.findOne({troupeName:req.body.troupeName})
         // console.log(foundTroupe)
         foundTroupe["members"].push(req.user._id)
+        req.user.troupes.push(foundTroupe._id)
         // console.log(foundTroupe)
         await foundTroupe.save()
         res.status(200).send(foundTroupe)
+    } catch(e){
+        console.log(e)
+        res.status(400).send(e)
+    }
+})
+
+// Add a member to your troupe
+
+router.patch("/add/:id",auth,async (req,res)=>{
+    try{
+        // console.log(req.)
+        const foundTroupe = await Troupe.findOne({troupeName:req.body.troupeName})
+        const findUser = await User.findOne({_id:req.params.id})
+        // console.log(req.params.id)
+        // console.log(findUser)
+        foundTroupe["members"].push(findUser._id)
+        findUser["troupes"].push(foundTroupe._id)
+        // console.log(foundTroupe)
+        await foundTroupe.save()
+        await findUser.save()
+        res.status(200).send({foundTroupe,findUser})
+    } catch(e){
+        console.log(e)
+        res.status(400).send(e)
+    }
+})
+
+// View all troupes user is part of
+
+router.get("/my-troupes", auth, async (req,res)=>{
+    try{
+        const allTroupes = await Troupe.find({})
+        myTroupes = allTroupes.filter((troupe)=>{
+            return troupe.members.includes(req.user._id)
+        })
+        console.log("myTroupes:"+myTroupes)
+
+        if (!myTroupes){
+            return res.status(404).send("You are not a part of any troupes")
+        }
+        res.send(myTroupes)
     } catch(e){
         console.log(e)
         res.status(400).send(e)
@@ -42,7 +84,7 @@ router.get("/all",async (req,res)=>{
     try {
         const allTroupes = await Troupe.find({})
         if (!allTroupes){
-            return res.status(404).send("No Troupes Exist in your Scope")
+            return res.status(404).send("No Troupes Exist")
         }
         res.send(allTroupes)
     } catch (err) {
@@ -60,7 +102,7 @@ router.patch("/:id",auth, async (req,res) => {
         if(!findTroupe["members"].includes(req.user._id)){
             return res.status(401).send("You are not a member of this troupe")
         }
-        
+
         const updateTroupe = await Troupe.findByIdAndUpdate(req.params.id,req.body,{ new: true, runValidators: true})
         res.send(updateTroupe)
     } catch(err){
