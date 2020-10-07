@@ -10,6 +10,8 @@ app.use(cors())
 
 //Import Routes
 const usersRoute = require("./routes/users");
+const tasksRoute = require("./routes/tasks");
+const troupeRoute = require("./routes/troupes");
 
 //DB connection to Mongo Database
 
@@ -27,6 +29,9 @@ app.use(express.json());
 
 //Router Middleware
 app.use("/users", usersRoute);
+app.use("/troupes", troupeRoute);
+app.use("/", tasksRoute);
+
 
 
 app.listen(3001, () => {
