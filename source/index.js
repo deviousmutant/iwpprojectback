@@ -17,7 +17,8 @@ const usersRoute = require("./routes/users");
 
 mongoose.connect(process.env.DB_CONNECT, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useCreateIndex:true
 }, () => console.log("Connected to Mongo Database (Local)"))
 
 
