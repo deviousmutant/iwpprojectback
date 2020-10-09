@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const User = require('../models/User');
-const auth = require('../auth/authorize')
+const {auth, authTroupeTask} = require('../auth/authorize')
 const bodyParser = require('body-parser')
 const urlencodedparser = bodyParser.urlencoded({ extended: false })
 

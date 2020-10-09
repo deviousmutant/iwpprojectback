@@ -13,9 +13,8 @@ const taskSchema = mongoose.Schema({
         default:false
     },
     createdDate: {
-        type: Boolean,
+        type: Date,
         required: false,
-        default:false
     },
     completedDate: {
         type: Date,
@@ -23,8 +22,8 @@ const taskSchema = mongoose.Schema({
     },
     ownerTroupe: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'User'
+        // required: true,
+        ref: 'Troupe'
     }
     
 })
