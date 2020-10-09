@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const User = require('../models/User');
 const Troupe = require('../models/Troupe');
-const auth = require('../auth/authorize')
+const {auth} = require('../auth/authorize')
 const bodyParser = require('body-parser');
 const urlencodedparser = bodyParser.urlencoded({ extended: false })
 
@@ -14,10 +14,11 @@ router.post("/create", urlencodedparser,auth, async (req, res) => {
     })
     try {
         await newTroupe.save();
-
+        req.user.troupes.push(newTroupe._id)
+        await req.user.save()
         res.status(201).send(newTroupe)
     } catch (error) {
-        res.status(400).send("Cannot receive data")
+        res.status(400).send("Cannot Create Error")
     }
 })
 
@@ -52,7 +53,7 @@ router.patch("/add/:id",auth,async (req,res)=>{
         // console.log(foundTroupe)
         await foundTroupe.save()
         await findUser.save()
-        res.status(200).send({foundTroupe,findUser})
+        res.status(200).send({foundTroupe,addedUser:findUser})
     } catch(e){
         console.log(e)
         res.status(400).send(e)

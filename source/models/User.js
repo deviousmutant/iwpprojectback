@@ -19,7 +19,8 @@ const userSchema = new mongoose.Schema({
         min: 6
     },
     troupes: [{
-        type: String
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Troupe'
     }],
     tokens: [{
         token: {
