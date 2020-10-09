@@ -104,7 +104,7 @@ router.patch("/:id",auth, async (req,res) => {
             return res.status(401).send("You are not a member of this troupe")
         }
 
-        const updateTroupe = await Troupe.findByIdAndUpdate(req.params.id,req.body,{ new: true, runValidators: true})
+        const updateTroupe = await Troupe.findByIdAndUpdate(req.params.id,req.body,{ new: true})
         res.send(updateTroupe)
     } catch(err){
         console.log(err)

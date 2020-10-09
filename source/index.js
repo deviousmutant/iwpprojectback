@@ -12,6 +12,7 @@ app.use(cors())
 const usersRoute = require("./routes/users");
 const tasksRoute = require("./routes/tasks");
 const troupeRoute = require("./routes/troupes");
+const ideaRoute = require("./routes/ideas");
 
 //DB connection to Mongo Database
 
@@ -31,6 +32,7 @@ app.use(express.json());
 app.use("/users", usersRoute);
 app.use("/troupes", troupeRoute);
 app.use("/", tasksRoute);
+app.use("/ideas", ideaRoute);
 
 
 

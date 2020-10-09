@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken")
 const Task = require("../models/Task.js")
 const User = require("../models/User.js")
+const Idea = require("../models/Idea.js")
 
 
 // The following function acts to authenticate a request from the client. The client will send the requesting user's login token (web token) as the 'authorization' header.
@@ -45,7 +46,26 @@ const authTroupeTask = async function (req,res,next) {
     }
 }
 
+const authTroupeIdea = async function (req,res,next) {
+
+    try{
+        // console.log("req.user:"+req.user)
+        const userTroupe = req.user.troupes
+        // console.log("userTroupe:",userTroupe)
+        const ideaTroupe = await Idea.findById(req.params.id,'ownerTroupe')
+        // console.log("ideaTroupe:",ideaTroupe)
+        if (!userTroupe.includes(ideaTroupe.ownerTroupe.toString())){
+            throw new Error()
+        }
+        next()
+    } catch (e) {
+        console.log(e)
+        res.status(401).send("You cannot access this Idea since you are not a part of its troupe")
+    }
+}
+
 module.exports = {
     auth,
-    authTroupeTask
+    authTroupeTask,
+    authTroupeIdea
 }

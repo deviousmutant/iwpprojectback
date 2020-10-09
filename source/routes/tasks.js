@@ -72,7 +72,7 @@ router.get("/tasks/one/:id",auth, async (req,res) => {
 router.patch("/tasks/:id", auth, authTroupeTask, async (req,res) => {
     try{
 
-        const updatedTask = await Task.findByIdAndUpdate(req.params.id,req.body)
+        const updatedTask = await Task.findByIdAndUpdate(req.params.id,req.body,{new: true})
         if (!updatedTask){
             return res.status(404).send()
         }
@@ -84,6 +84,7 @@ router.patch("/tasks/:id", auth, authTroupeTask, async (req,res) => {
 
 })
 
+// Delete task
 router.delete("/tasks/:id", auth, authTroupeTask, async (req,res) => {
     try {
         const deletedTask = await Task.findOneAndDelete({_id:req.params.id})
