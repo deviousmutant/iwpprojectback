@@ -13,6 +13,7 @@ const usersRoute = require("./routes/users");
 const tasksRoute = require("./routes/tasks");
 const troupeRoute = require("./routes/troupes");
 const ideaRoute = require("./routes/ideas");
+const reminderRoute = require("./routes/reminders");
 
 //DB connection to Mongo Database
 
@@ -33,6 +34,7 @@ app.use("/users", usersRoute);
 app.use("/troupes", troupeRoute);
 app.use("/", tasksRoute);
 app.use("/ideas", ideaRoute);
+app.use("/reminders",reminderRoute);
 
 
 

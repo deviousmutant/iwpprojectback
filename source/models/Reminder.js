@@ -8,8 +8,7 @@ const reminderSchema = mongoose.Schema({
         trim:true
     },
     dueDate: {
-        type: Date,
-        required: false
+        type: Date
     },
     ownerTroupe: {
         type: mongoose.Schema.Types.ObjectId,
