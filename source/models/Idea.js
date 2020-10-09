@@ -24,6 +24,16 @@ const ideaSchema = mongoose.Schema({
     
 })
 
+
+
+ideaSchema.methods.toJSON = function () {
+    const idea = this
+    const ideaObject = idea.toObject()
+
+    delete ideaObject.image
+
+    return ideaObject
+}
 const Idea = mongoose.model("Idea",ideaSchema)
 
 module.exports = Idea
