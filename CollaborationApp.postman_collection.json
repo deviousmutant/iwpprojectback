@@ -1,0 +1,853 @@
+{
+	"info": {
+		"_postman_id": "b8a6bb4d-8683-411c-a9bb-fd14ebe50cd0",
+		"name": "Collaboration App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"user3 Doe\",\n    \"email\":\"user3@collabapplication.com\",\n    \"password\":\"Hello1234\",\n    \"troupes\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "23770142-5350-4fea-89ae-e7e105b8f4f6",
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    pm.environment.set(\"authToken\",pm.response.json().token)",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"user1@collabapplication.com\",\n    \"password\":\"Hello1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/signin",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\":\"Hello\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "Create Task",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\":\"task1\",\n    \"completed\":false,\n    \"ownerTroupe\":\"5f802c33cb87272664519f8a\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tasks",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List tasks of User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\":\"Finish Sid's Backend by Tonight\",\n    \"completed\":false,\n    \"ownerTroupe\":\"5f7d8e541e66f30d98e8d358\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tasks",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List tasks of 1 troupe",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\":\"Finish Sid's Backend by Tonight\",\n    \"completed\":false,\n    \"ownerTroupe\":\"5f7d8e541e66f30d98e8d358\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tasks/5f7fff43cd81a706a25f7ff5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tasks",
+								"5f7fff43cd81a706a25f7ff5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Task",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\":\"task1 updated v4\",\n    \"completed\":\"true\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tasks/5f802e768fde09280ad8b508",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tasks",
+								"5f802e768fde09280ad8b508"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Task",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\":\"Changed\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tasks/5f8002895c676f089e1150ef",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tasks",
+								"5f8002895c676f089e1150ef"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FInd Task by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\":\"Finish Sid's Backend by Tonight\",\n    \"completed\":false,\n    \"ownerTroupe\":\"5f7d8e541e66f30d98e8d358\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tasks/one/5f802e768fde09280ad8b508",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tasks",
+								"one",
+								"5f802e768fde09280ad8b508"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Reminders",
+			"item": [
+				{
+					"name": "Create Reminder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\":\"Reminder1\",\n    \"dueDate\": \"2020-12-01\",\n    \"ownerTroupe\":\"5f802c33cb87272664519f8a\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/reminders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"reminders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Reminders of User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\":\"Finish Sid's Backend by Tonight\",\n    \"completed\":false,\n    \"ownerTroupe\":\"5f7d8e541e66f30d98e8d358\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/reminders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"reminders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Reminders of 1 troupe",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/reminders/5f802c33cb87272664519f8a",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"reminders",
+								"5f802c33cb87272664519f8a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FInd reminder by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\":\"Finish Sid's Backend by Tonight\",\n    \"completed\":false,\n    \"ownerTroupe\":\"5f7d8e541e66f30d98e8d358\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/reminders/one/5f802c44cb87272664519f8b",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"reminders",
+								"one",
+								"5f802c44cb87272664519f8b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Reminder",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\":\"description changed v6\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/reminders/5f802c44cb87272664519f8b",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"reminders",
+								"5f802c44cb87272664519f8b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Reminder",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\":\"Changed\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/reminders/5f803dd28016bc309f9babd0",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"reminders",
+								"5f803dd28016bc309f9babd0"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Troupe",
+			"item": [
+				{
+					"name": "Create Troupe",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"troupeName\":\"AooAooAoo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/troupes/create",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"troupes",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Join Troupe",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"troupeName\":\"HackerBoys\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/troupes/join",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"troupes",
+								"join"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Member to Troupe",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"troupeName\":\"CooCooCoo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/troupes/add/5f7fff57cd81a706a25f7ff6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"troupes",
+								"add",
+								"5f7fff57cd81a706a25f7ff6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List All Troupes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"troupeName\":\"HackerBoys\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/troupes/all",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"troupes",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List All MY Troupes",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"troupeName\":\"HackerBoys\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/troupes/my-troupes",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"troupes",
+								"my-troupes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Troupe",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"troupeName\":\"HackerGirl\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/troupes/5f7d6187e4b1d6024ff529bf",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"troupes",
+								"5f7d6187e4b1d6024ff529bf"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Ideas",
+			"item": [
+				{
+					"name": "Create Idea",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "title1",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "description1",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/Users/sanjitkumar/Desktop/sid.png"
+								},
+								{
+									"key": "ownerTroupe",
+									"value": "5f802c33cb87272664519f8a",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/ideas",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ideas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All MY troupes' ideas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"date a cute chick\",\n    \"description\":\"because cute girls are kawaii\",\n    \"ownerTroupe\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/ideas",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ideas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All ideas of this troupe",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"date a cute chick\",\n    \"description\":\"because cute girls are kawaii\",\n    \"ownerTroupe\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/ideas/5f802c33cb87272664519f8a",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ideas",
+								"5f802c33cb87272664519f8a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Idea by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/ideas/one/5f80384061e5fa2b4f26b10d",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ideas",
+								"one",
+								"5f80384061e5fa2b4f26b10d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Idea",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"this is an updated title v4\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/ideas/5f802c33cb87272664519f8a",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ideas",
+								"5f802c33cb87272664519f8a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Idea",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/ideas/5f80384061e5fa2b4f26b10d",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"ideas",
+								"5f80384061e5fa2b4f26b10d"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{authToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"protocolProfileBehavior": {}
+}

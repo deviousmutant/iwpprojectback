@@ -115,5 +115,24 @@ router.delete("/:id", auth, async (req,res) => {
     }
 })
 
+// Get image
+
+// Get Idea By ID
+router.get("/image/:id",auth, async (req,res) => {
+    const _id = req.params.id
+
+    try {
+
+        const foundIdea = await Idea.findOne( { _id} )
+        if (!foundIdea || !foundIdea.image){
+            return res.status(404).send()
+        }
+
+        res.set("Content-Type","image/png")
+        res.send(foundIdea.image)
+    } catch (e) {
+        res.status(500).send()
+    }
+})
 
 module.exports = router
